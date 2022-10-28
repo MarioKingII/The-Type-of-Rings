@@ -40,4 +40,4 @@ class enemy(entity):
     def nextPosition(positions):
         for i in positions:
             position = positions
-            
+            return position
