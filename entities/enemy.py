@@ -27,3 +27,17 @@ class enemy(entity):
         for a in range(positions):
             enemies.append(enemy(position=(0, 0)))
         return enemies
+    
+    # establishing a starting position always in the same place.
+    def startPosition(position):
+        start = (0,0)
+        position = start
+        return position
+   
+    # here is where we will create and populate the path that the enemies follow.
+    positions = {}
+
+    def nextPosition(positions):
+        for i in positions:
+            position = positions
+            
