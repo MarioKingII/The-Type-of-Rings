@@ -7,7 +7,7 @@ class enemy(entity):
     # TODO: make filepath be data-driven. Different tower types can have a different filepath. I guess this would be filepath_data? Or something like that.
     def __init__(
         self,
-        filename: str = ":resources:images/enemies/slimeBlock.png",
+        filename: str = "images/enemyImg.png",
         position: tuple[float, float] = (0, 0),
     ):
         super().__init__(filename=filename, position=position)
