@@ -3,6 +3,7 @@ from entities.entity import entity
 from gameArchitecture.level import level
 
 
+
 class enemy(entity):
 
     # TODO: make filepath be data-driven. Different tower types can have a different filepath. I guess this would be filepath_data? Or something like that.
@@ -28,16 +29,26 @@ class enemy(entity):
         for a in range(positions):
             enemies.append(enemy(position=(0, 0)))
         return enemies
+
     
-    # establishing a starting position always in the same place.
-    def startPosition(position):
-        start = (0,0)
-        position = start
-        return position
    
     # here is where we will create and populate the path that the enemies follow.
+    
+    # first initialize variable positions
     positions = {}
 
+    # second populate positions to create the route based on the level data.
+    def createRoute(route, positions):
+        for i in route:
+            route = positions[i]
+    
+    # establishing a starting position always in the same place.
+    def startPosition(position, route):
+        start = route[0]
+        position = start
+        return position
+
+    # move on to the next position in the positions list
     def nextPosition(positions):
         for i in positions:
             position = positions
