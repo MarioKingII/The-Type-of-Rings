@@ -1,5 +1,6 @@
 from arcade import SpriteList
 from entities.entity import entity
+from gameArchitecture.level import level
 
 
 class enemy(entity):
@@ -27,3 +28,6 @@ class enemy(entity):
         for a in range(positions):
             enemies.append(enemy(position=(0, 0)))
         return enemies
+    def followRoute(route):
+        for i in route:
+            
