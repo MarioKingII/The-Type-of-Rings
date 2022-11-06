@@ -1,7 +1,6 @@
+import pygame
 from arcade import SpriteList
-from entities.entity import entity
-from gameArchitecture.level import level
-
+from entity import entity 
 
 
 class enemy(entity):
@@ -10,9 +9,9 @@ class enemy(entity):
     def __init__(
         self,
         filename: str = ":resources:images/enemies/slimeBlock.png",
-        position: tuple[float, float] = (0, 0),
+        route: tuple[float, float] = (0, 0),
     ):
-        super().__init__(filename=filename, position=position)
+        super().__init__(filename=filename, position=route[0])
 
         # initialization logic goes here.
 
@@ -31,9 +30,10 @@ class enemy(entity):
         return enemies
 
     
-   
+    
     # here is where we will create and populate the path that the enemies follow.
     
+    route  = (1,0),(2,0),(3,0),(4,0), (5,0) 
     # first initialize variable positions
     positions = {}
 
@@ -49,7 +49,7 @@ class enemy(entity):
         return position
 
     # move on to the next position in the positions list
-    def nextPosition(positions):
+    def enemyAdvance(positions):
         for i in positions:
             position = positions
             return position
