@@ -1,5 +1,6 @@
 from arcade import SpriteList
 from entities.entity import entity
+from gameArchitecture.level import level
 
 
 class enemy(entity):
