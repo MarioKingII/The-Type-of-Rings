@@ -57,7 +57,7 @@ class level(arcade.View):
     def exit_level(self):
         self.on_exit_callback(self.save_data)
 
-    def Validate_Word(self, keystroke): #Keystroke 
+    def Validate_Word(self, keystroke): #Keystroke has to be defined
         self.active_word = self.word_data[level.active_word_index]
         self.active_letter = self.active_word[level.active_letter_index]
         if keystroke == self.active_letter:          
