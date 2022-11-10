@@ -7,6 +7,8 @@ from entities.tower import tower
 
 # extend my view_state instead.
 class level(arcade.View):
+    active_word_index = 0
+    active_letter_index = 0
     def __init__(self, data: level_data, on_exit_callback: Callable[[dict], None]):
         super().__init__()
         self.level_id = data.level_id
@@ -54,3 +56,15 @@ class level(arcade.View):
 
     def exit_level(self):
         self.on_exit_callback(self.save_data)
+
+    def Validate_Word(self, keystroke): #Keystroke 
+        self.active_word = self.word_data[level.active_word_index]
+        self.active_letter = self.active_word[level.active_letter_index]
+        if keystroke == self.active_letter:          
+            level.active_letter_index += 1           
+            if len(self.active_word) == level.active_letter_index:
+                self.resources += 100 # Needs work
+                level.active_letter_index = 0
+                level.active_word_index += 1
+        else:
+            level.active_letter_index = 0
