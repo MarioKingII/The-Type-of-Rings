@@ -1,10 +1,10 @@
+import arcade
 from arcade import SpriteList
 from entities.entity import entity
-from entities.enemy import enemy
-
-
 
 class tower(entity):
+
+    all_enemies:SpriteList = None
 
     # TODO: make filepath be data-driven. Different tower types can have a different filepath. I guess this would be filepath_data? Or something like that.
     def __init__(
@@ -33,13 +33,14 @@ class tower(entity):
         # implement logic
         #Tracks rate of fire.
 
-        self.time_since_last_firing += delta_time
-        
-        if self.time_since_last_firing >= self.firing_rate:
+        def towerShoot():
+            self.time_since_last_firing += delta_time
+            
+            if self.time_since_last_firing >= self.firing_rate:
 
-            self.time_since_last_firing = 0
-            #print("Bang")
-            #Bullet spawn positon to tower goes here. 
+                self.time_since_last_firing = 0
+                #print("Bang")
+                #Bullet spawn positon to tower goes here. 
 
         #If the resources and tower level are correct, then the tower is upgraded. If the player does not have
         #the correct number of resources, then every value stays the same and the user is told they don't have
@@ -87,7 +88,19 @@ class tower(entity):
         # resource_check = check_resources(self.resources_value)
         # print(resource_check)
 
-        
+        # spriteDistance = arcade.get_distance_between_sprites(
+        #     tower = arcade.sprite.tower,
+        #     enemies = arcade.sprite.enemy
+        # )
+
+        targetedEnemy = arcade.get_closest_sprite(
+            self, tower.all_enemies
+        )
+
+        targetDistance = targetedEnemy[1]
+
+        if targetDistance <= self.range:
+            towerShoot()
 
     def draw(self, *, filter=None, pixelated=None, blend_function=None):
         super().draw(filter=filter, pixelated=pixelated, blend_function=blend_function)

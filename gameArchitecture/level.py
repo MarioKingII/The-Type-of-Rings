@@ -33,6 +33,7 @@ class level(arcade.View):
         self.route = route(self.route_data)
         self.towers = tower.getListFromData(self.towers_data)
         self.enemies = enemy.getListFromData(self.enemies_data)
+        tower.all_enemies = self.enemies
 
         self.can_run_gameplay = True
 

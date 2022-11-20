@@ -11,7 +11,7 @@ class enemy(entity):
         position: tuple[float, float] = (0, 0),
     ):
         super().__init__(filename=filename, position=position)
-
+        
         # initialization logic goes here.
 
     def on_update(self, delta_time: float = 1 / 60):
