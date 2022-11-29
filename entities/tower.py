@@ -4,7 +4,7 @@ from entities.entity import entity
 
 class tower(entity):
 
-    all_enemies:SpriteList = None
+    all_enemies : SpriteList = None
 
     # TODO: make filepath be data-driven. Different tower types can have a different filepath. I guess this would be filepath_data? Or something like that.
     def __init__(
@@ -32,7 +32,6 @@ class tower(entity):
         super().on_update(delta_time)
         # implement logic
         #Tracks rate of fire.
-
         def towerShoot():
             self.time_since_last_firing += delta_time
             
@@ -67,35 +66,8 @@ class tower(entity):
                 tower_level = tower_level
                 print("Not enough resources.")
                 return resources, damage, tower_level
-        #Testing code for upgrade() to make sure it works.
-        # upgrade_results = upgrade(self.resources_value, self.damage_multiplier, self.current_tower_lv)
-        # resources_value = upgrade_results[0]
-        # damage_multiplier = upgrade_results[1]
-        # current_tower_lv = upgrade_results[2]
-        # print(f"Rsources Left: {resources_value}\nCurrent Damage: {damage_multiplier}\nTower Level: {current_tower_lv}")
-        
-        # 
-        def check_resources(resources):
-            if resources == 0:
-                print("No resources")
-                upgrade_results = "None"
-                return upgrade_results
-            else:
-                upgrade_results = upgrade(self.resources_value, self.damage_multiplier, self.current_tower_lv)
-                return upgrade_results
-
-        # Test code for checking resources.
-        # resource_check = check_resources(self.resources_value)
-        # print(resource_check)
-
-        # spriteDistance = arcade.get_distance_between_sprites(
-        #     tower = arcade.sprite.tower,
-        #     enemies = arcade.sprite.enemy
-        # )
-
-        targetedEnemy = arcade.get_closest_sprite(
-            self, tower.all_enemies
-        )
+                
+        targetedEnemy = arcade.get_closest_sprite(self, tower.all_enemies)
 
         targetDistance = targetedEnemy[1]
 
