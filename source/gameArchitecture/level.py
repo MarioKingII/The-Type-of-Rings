@@ -1,12 +1,15 @@
 from typing import Callable
 import arcade
-from data_classes.level_data import level_data
-from entities.enemy import enemy
-from entities.route import route
-from entities.tower import tower
+
+from ..entities.bullet import Bullet
+from ..data_classes.level_data import level_data
+# from entities.enemy import Enemy
+from .enemy_manager import EnemyManager
+from ..entities.route import Route
+from ..entities.tower import Tower
 
 # extend my view_state instead.
-class level(arcade.View):
+class Level(arcade.View):
     def __init__(self, data: level_data, on_exit_callback: Callable[[dict], None]):
         super().__init__()
         self.level_id = data.level_id
@@ -30,24 +33,30 @@ class level(arcade.View):
         pass
 
     def setup(self):
-        self.route = route(self.route_data)
-        self.towers = tower.getListFromData(self.towers_data)
-        self.enemies = enemy.getListFromData(self.enemies_data)
-        tower.all_enemies = self.enemies
+        self.route = Route(self.route_data)
+        self.towers = Tower.getListFromData(self.towers_data)
+        self.enemy_mgr = EnemyManager(self.on_enemy_mgr_close,self.route,self.enemies_data,enemy_speed=100)
+        self.enemy_mgr.start()
+        # self.enemies = Enemy.getListFromData(self.enemies_data)
+        # Tower.all_enemies = self.enemies
 
         self.can_run_gameplay = True
 
     def on_update(self, delta_time: float):
         if self.can_run_gameplay:
             self.towers.on_update(delta_time)
-            self.enemies.on_update(delta_time)
+            self.enemy_mgr.on_update(delta_time)
+            Bullet.all_bullets.on_update(delta_time=delta_time)
+            # self.enemies.on_update(delta_time)
         #run menu stuff here, or ui stuff, or whatever.
 
     def on_draw(self):
         arcade.start_render()
         if self.can_run_gameplay:
             self.towers.draw()
-            self.enemies.draw()
+            Bullet.all_bullets.draw()
+            self.enemy_mgr.on_draw()
+            # self.enemies.draw()
 
     def on_key_press(self, key: int, modifiers: int):
         if key == arcade.key.SPACE:
@@ -55,3 +64,6 @@ class level(arcade.View):
 
     def exit_level(self):
         self.on_exit_callback(self.save_data)
+    
+    def on_enemy_mgr_close(self, EnemyManager):
+        self.exit_level()

@@ -1,8 +1,8 @@
 import arcade
-from data_classes.game_data import game_data
-from data_classes.level_data import level_data
-from gameArchitecture.dataManager import data_manager
-from gameArchitecture.level import level
+from .data_classes.game_data import game_data
+from .data_classes.level_data import level_data
+from .gameArchitecture.dataManager import data_manager
+from .gameArchitecture.level import Level
 
 
 class Game:
@@ -46,12 +46,8 @@ class Game:
     def load_new_level(self, level_index : int):
         #Garbage collection probably handles this fine, but I'm not 100% certain. Should come back to this.
         #del self.active_level
-        self.active_level = level(
+        self.active_level = Level(
             self.data_manager.load_level_data(self.gameData.level_ids[level_index]), self.on_level_exit
         )
         self.active_level.setup()
         self.gameWindow.show_view(self.active_level)
-
-
-
-game = Game()
