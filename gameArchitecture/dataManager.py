@@ -26,7 +26,7 @@ class data_manager:
         word_data = ["Coconuts", "Make", "Me", "Giggle"]
         for x in range(10):
             route.append((9 * 50, (9 - x) * 50))
-            towers.append((350, x * 50))
+            towers.append((350, 150))
             enemies = 5
 
         return level_data(
