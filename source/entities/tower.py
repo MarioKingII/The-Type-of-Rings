@@ -27,7 +27,7 @@ class Tower(Entity):
         #Temporary resource value
         self.resources_value = 10
         #Value of the range a tower can shoot.
-        self.range = 50
+        self.range = 300
 
         self.delta_time = 0.0
 
@@ -44,7 +44,7 @@ class Tower(Entity):
     
     def towerShoot(self, target):
         
-        if self.time_since_last_firing >= 1 / self.firing_rate:
+        if self.time_since_last_firing >= self.firing_rate:
 
             self.time_since_last_firing = 0
             Bullet.spawn(position=self.position,target=target,damage=self.damage_multiplier,speed=1000)

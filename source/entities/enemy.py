@@ -77,7 +77,7 @@ class Enemy(Entity,Ephemeral):
         self.is_active = False
         Enemy.total_destroyed += 1
         self.alpha = 0
-        self.set_position(-100,-100)
+        self.set_position(-1000,-1000)
         
     
     def draw(self, *, filter=None, pixelated=None, blend_function=None):

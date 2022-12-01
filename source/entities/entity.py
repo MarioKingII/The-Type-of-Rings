@@ -6,8 +6,8 @@ class Entity(arcade.Sprite):
     eIdCounter: int = 0
     # destroyed_entities = dict()
 
-    def __init__(self, filename: str, position: tuple[float, float]):
-        super().__init__(filename=filename)
+    def __init__(self, filename: str, position: tuple[float, float], **args):
+        super().__init__(filename=filename, hit_box_algorithm="Detailed", **args)
 
         self.eID: str = str(Entity.eIdCounter)
         self.set_position(position[0], position[1])

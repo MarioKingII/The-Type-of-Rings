@@ -15,23 +15,24 @@ class Bullet(Entity,Ephemeral):
         return cls.__destroyed_bullets
 
     def __init__(self, **kwargs):
-        super().__init__("images/bulletImg.png",(-100,-100))
+        super().__init__(filename="images/bulletImg.png",position=(500,500))
+        
         Bullet.all_bullets.append(self)
 
 
     def _on_spawn(self,**kwargs):
-        self.position = kwargs["position"]
+        self.set_position(kwargs["position"][0],kwargs["position"][1])
         self.target : Entity = kwargs["target"]
         self.damage = kwargs["damage"]
         self.speed = kwargs["speed"]
         self.is_active = True
-        self.alpha = 255
+        # self.alpha = 255
     
 
-    def _on_despawn(self,):
+    def _on_despawn(self):
         self.is_active = False
         Bullet.total_destroyed += 1
-        self.alpha = 0
+        # self.alpha = 0
         self.set_position(-200,-100)
     
     def on_update(self, delta_time: float = 1 / 60):

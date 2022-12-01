@@ -54,7 +54,8 @@ class Level(arcade.View):
         arcade.start_render()
         if self.can_run_gameplay:
             self.towers.draw()
-            Bullet.all_bullets.draw()
+            if len(Bullet.all_bullets) > 0:
+                Bullet.all_bullets.draw()
             self.enemy_mgr.on_draw()
             # self.enemies.draw()
 
