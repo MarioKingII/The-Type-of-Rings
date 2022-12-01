@@ -1,7 +1,10 @@
 from abc import ABC,abstractmethod
 class Ephemeral(ABC):
 
-
+    def get_hit(self,damage : int):
+        self.health -= damage
+        if self.health <= 0:
+            self.__class__.despawn(self)
 
     @classmethod
     def spawn(cls, **kwargs):
@@ -11,6 +14,11 @@ class Ephemeral(ABC):
         else:
             new_entity = cls(**kwargs)
         
+        if "health" in kwargs:
+            new_entity.health = kwargs["health"]
+        else:
+            new_entity.health = 3
+
         new_entity._on_spawn(**kwargs)
     
     

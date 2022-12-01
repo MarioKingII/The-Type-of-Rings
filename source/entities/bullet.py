@@ -49,6 +49,6 @@ class Bullet(Entity,Ephemeral):
     def draw(self, *, filter=None, pixelated=None, blend_function=None):
         super().draw(filter=filter, pixelated=pixelated, blend_function=blend_function)
     
-    def hit(self,target : Entity):
-        pass
+    def hit(self,target : Ephemeral):
+        target.get_hit(self.damage)
         
