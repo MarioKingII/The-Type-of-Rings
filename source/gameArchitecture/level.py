@@ -10,6 +10,9 @@ from ..entities.tower import Tower
 
 # extend my view_state instead.
 class Level(arcade.View):
+    active_word_index = 0
+    active_letter_index = 0
+
     def __init__(self, data: level_data, on_exit_callback: Callable[[dict], None]):
         super().__init__()
         self.level_id = data.level_id
@@ -18,6 +21,8 @@ class Level(arcade.View):
         self.enemies_data = data.enemies
         self.word_data = data.word_data
         self.resources : int = 0
+        self.get_word()
+        self.currentWord = arcade.Text(self.active_word, 660, 30, arcade.color.WHITE, 18, 10, 'right')
 
         # Populate this once you have something to save, such as a high score.
         self.save_data = dict()
@@ -37,6 +42,7 @@ class Level(arcade.View):
         self.towers = Tower.getListFromData(self.towers_data)
         self.enemy_mgr = EnemyManager(self.on_enemy_mgr_close,self.route,self.enemies_data,enemy_speed=100)
         self.enemy_mgr.start()
+
         # self.enemies = Enemy.getListFromData(self.enemies_data)
         # Tower.all_enemies = self.enemies
 
@@ -50,6 +56,10 @@ class Level(arcade.View):
             # self.enemies.on_update(delta_time)
         #run menu stuff here, or ui stuff, or whatever.
 
+        print(self.currentWord)
+
+        
+
     def on_draw(self):
         arcade.start_render()
         if self.can_run_gameplay:
@@ -59,12 +69,35 @@ class Level(arcade.View):
             self.enemy_mgr.on_draw()
             # self.enemies.draw()
 
+            #arcade.draw_text(self.active_word, 300.0, 300.0, arcade.color.WHITE, 30, 40, 'right')
+            self.currentWord.draw()
+
     def on_key_press(self, key: int, modifiers: int):
         if key == arcade.key.SPACE:
             self.exit_level()
+            
+        self.Validate_Word(key)
 
     def exit_level(self):
         self.on_exit_callback(self.save_data)
     
     def on_enemy_mgr_close(self, EnemyManager):
         self.exit_level()
+
+    def get_word(self):
+        self.active_word = self.word_data[Level.active_word_index]
+        self.active_letter = self.active_word[Level.active_letter_index]
+
+    def Validate_Word(self, keystroke): #Keystroke has to be defined
+        if keystroke == self.active_letter:          
+            Level.active_letter_index += 1           
+            if len(self.active_word) == Level.active_letter_index:
+                self.resources += 100 # Needs work
+                Level.active_letter_index = 0
+                Level.active_word_index += 1
+        else:
+            Level.active_letter_index = 0
+
+    
+
+    
