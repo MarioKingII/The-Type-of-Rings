@@ -23,6 +23,8 @@ class Level(arcade.View):
         self.resources : int = 0
         self.get_word()
         self.currentWord = arcade.Text(self.active_word, 660, 30, arcade.color.WHITE, 18, 10, 'right')
+        self.wordLocation = 660
+        self.onWord = arcade.draw_rectangle_filled(self.wordLocation, 30, 50, 50, arcade.color.GRAY)
 
         # Populate this once you have something to save, such as a high score.
         self.save_data = dict()
@@ -59,7 +61,6 @@ class Level(arcade.View):
         print(self.currentWord)
 
         
-
     def on_draw(self):
         arcade.start_render()
         if self.can_run_gameplay:
@@ -68,8 +69,8 @@ class Level(arcade.View):
                 Bullet.all_bullets.draw()
             self.enemy_mgr.on_draw()
             # self.enemies.draw()
-
-            #arcade.draw_text(self.active_word, 300.0, 300.0, arcade.color.WHITE, 30, 40, 'right')
+            
+            self.onWord.draw()
             self.currentWord.draw()
 
     def on_key_press(self, key: int, modifiers: int):
