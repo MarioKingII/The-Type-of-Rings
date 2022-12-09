@@ -24,7 +24,7 @@ class Level(arcade.View):
         self.get_word()
         self.currentWord = arcade.Text(self.active_word, 660, 30, arcade.color.WHITE, 18, 10, 'right')
         self.wordLocation = 660
-        self.onWord = arcade.draw_rectangle_filled(self.wordLocation, 30, 50, 50, arcade.color.GRAY)
+        
 
         # Populate this once you have something to save, such as a high score.
         self.save_data = dict()
@@ -58,7 +58,10 @@ class Level(arcade.View):
             # self.enemies.on_update(delta_time)
         #run menu stuff here, or ui stuff, or whatever.
 
-        print(self.currentWord)
+        #print(self.currentWord)
+        self.get_word()
+        self.substring = self.active_word[0:self.active_letter_index]
+        self.printedWord = arcade.Text(self.substring, 660, 30, arcade.color.GREEN, 18, 10, 'right')
 
         
     def on_draw(self):
@@ -70,8 +73,10 @@ class Level(arcade.View):
             self.enemy_mgr.on_draw()
             # self.enemies.draw()
             
-            self.onWord.draw()
+            self.onWord()
             self.currentWord.draw()
+            self.printedWord.draw()
+            print(self.printedWord.text)
 
     def on_key_press(self, key: int, modifiers: int):
         if key == arcade.key.SPACE:
@@ -98,6 +103,9 @@ class Level(arcade.View):
                 Level.active_word_index += 1
         else:
             Level.active_letter_index = 0
+
+    def onWord(self):
+        arcade.draw_rectangle_filled(self.wordLocation, 30, 50, 50, arcade.color.GRAY)
 
     
 

@@ -27,7 +27,7 @@ class data_manager:
         route = [Vector2(0,500),Vector2(100,100),Vector2(500,500),Vector2(500,100)]
         towers = [(100,50),(200,50),(300,50),(400,50)]
         enemies = 20
-        word_data = ["Coconuts", "Make", "Me", "Giggle"]
+        word_data = ["coconuts", "make", "me", "giggle"]
         # for x in range(10):
         #     # route.append((9 * 50, (9 - x) * 50))
         #     towers.append((350, 150))
