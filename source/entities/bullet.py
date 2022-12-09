@@ -2,13 +2,15 @@ from arcade import SpriteList
 from .entity import Entity
 from .enemy import Enemy
 from .ephemerals import Ephemeral
+from csv import writer
+import csv 
 
 class Bullet(Entity,Ephemeral):
 
     all_bullets = SpriteList()
     __destroyed_bullets = []
     total_destroyed = 0
-
+    SCORE = 0
     @classmethod
     @property
     def destroyed_entities(cls):
@@ -30,10 +32,30 @@ class Bullet(Entity,Ephemeral):
     
 
     def _on_despawn(self):
+        from csv import writer
+        import csv 
+
         self.is_active = False
         Bullet.total_destroyed += 1
         # self.alpha = 0
         self.set_position(-200,-100)
+        self.SCORE += 1
+        dictionary = { }
+        List = ["Default", self.SCORE]
+        with open("sample.csv", 'a', newline='') as f_object:
+            # Pass this file object to csv.writer()
+            # and get a writer object
+            writer_object = writer(f_object)
+            # Pass the list as an argument into
+            # the writerow()
+            writer_object.writerow(List)
+
+            # Close the file object
+            f_object.close()
+        
+        
+
+
     
     def on_update(self, delta_time: float = 1 / 60):
         super().on_update(delta_time)
